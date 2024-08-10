@@ -1,0 +1,7 @@
+Напишите запрос SQL для подсчета количества продуктов в категории "Мясо/птица". Используйте таблицы gb_shop.Products и gb_shop.Categories.
+
+SELECT count(*) 
+FROM gb_shop.Products 
+where categoryid in (
+SELECT categoryid FROM gb_shop.Categories 
+WHERE categoryname = 'Meat/Poultry')

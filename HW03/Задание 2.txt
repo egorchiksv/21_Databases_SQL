@@ -1,0 +1,29 @@
+Необходимо провести анализ количества уникальных заказов, доставленных каждым перевозчиком в разные месяцы и годы.
+Отсортируйте по перевозчику, месяцу и году заказа.
+
+В результате запроса, сформулированного вами, будут следующие столбцы:
+
+shippername: наименование перевозчика,
+month(orderdate): месяц даты заказа,
+year(orderdate): год даты заказа,
+cnt: количество уникальных заказов, доставленных каждым перевозчиком в каждом месяце и году.
+
+Используемые таблицы gb_shop.Shippers и gb_shop.Orders.
+
+EXTRACT: EXTRACT - это функция, используемая для извлечения части даты или времени (например, месяца, дня, года) из значения даты или времени. Например: SELECT EXTRACT(MONTH FROM '2023-07-04' AS DATE);
+
+Результат будет 7, так как мы извлекаем месяц из даты 2023-07-04. Этот же запрос в MsSql выглядел бы так: SELECT MONTH('2023-07-04');
+
+SELECT 
+    shippername, 
+    EXTRACT(MONTH FROM CAST(orderdate AS DATE)) AS month, 
+    EXTRACT(YEAR FROM CAST(orderdate AS DATE)) AS year, 
+    COUNT(DISTINCT orderid) AS cnt 
+FROM 
+    gb_shop.Shippers sh
+JOIN 
+    gb_shop.Orders o ON o.ShipperID = sh.ShipperID
+GROUP BY 
+    shippername, EXTRACT(MONTH FROM CAST(orderdate AS DATE)), EXTRACT(YEAR FROM CAST(orderdate AS DATE))
+ORDER BY  
+    shippername, EXTRACT(MONTH FROM CAST(orderdate AS DATE)), EXTRACT(YEAR FROM CAST(orderdate AS DATE));

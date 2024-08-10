@@ -1,0 +1,6 @@
+Выведите товары (название productname), в порядке убывания суммы количества (sum(Quantity), в котором их заказали. Используйте таблицы gb_shop.Products и gb_shop.OrderDetails.
+
+SELECT productname FROM gb_shop.Products
+WHERE productid IN (
+SELECT productid FROM gb_shop.OrderDetails
+ORDER BY quantity DESC);

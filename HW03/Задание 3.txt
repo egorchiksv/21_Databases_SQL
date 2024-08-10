@@ -1,0 +1,14 @@
+Необходимо вычислить среднюю жизненную ценность клиента (LTV) (сколько денег покупатели в среднем тратят в магазине за весь период) для всех клиентов на основе их заказов в интернет-магазине.
+
+В результате этого запроса будет один столбецAVG(ltv).
+
+Используемые таблицы gb_shop.OrderDetails, gb_shop.Orders, gb_shop.Products.
+
+
+WITH ltvs AS (SELECT customerid, AVG(price*quantity) AS ltv 
+FROM gb_shop.OrderDetails od
+    JOIN gb_shop.Orders o ON o.OrderID=od.OrderID
+           JOIN gb_shop.Products p ON p.ProductID=od.ProductID
+GROUP BY customerid)
+SELECT AVG(ltv) 
+FROM ltvs

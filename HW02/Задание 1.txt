@@ -1,0 +1,14 @@
+Вам необходио проверить влияние семейного положения (family_status) на средний доход клиентов avg_income (среднее по столбцуincome) и средний запрашиваемый кредит avg_credit(credit_amount) .
+
+Подсчитайте количество записей для каждого значения в столбце family_status и назовите это количество cnt. Выведите в результате также средний доход клиентов avg_income и средний кредит avg_credit.
+
+Отсортируйте по среднему доходу клиентов avg_income в порядке возрастания.
+Используйте таблицу gb_shop.Clusters.
+
+SELECT family_status
+,count(*) as cnt
+,avg(income) as avg_income
+,avg(credit_amount) as avg_credit
+FROM gb_shop.Clusters 
+group by family_status
+order by avg_income

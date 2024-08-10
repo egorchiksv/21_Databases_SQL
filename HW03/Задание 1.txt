@@ -1,0 +1,9 @@
+Вам необходимо провести анализ среднего чека для заказов в вашем интернет-магазине.
+В результате этого запроса будет один столбец average_receipt.
+Используете таблицы gb_shop.OrderDetails и gb_shop.Products.
+
+WITH avg_reciepts as (SELECT orderid, AVG(price*quantity) AS avg_reciept 
+FROM gb_shop.OrderDetails od
+JOIN gb_shop.Products p on p.ProductID=od.ProductID
+GROUP BY orderid)
+select AVG(avg_reciept) FROM avg_reciepts
