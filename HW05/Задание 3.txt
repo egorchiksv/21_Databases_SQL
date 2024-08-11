@@ -1,0 +1,18 @@
+Удалите все заказы со статусом Delivered из таблицы OrderStatus, которую создавали на семинаре.
+
+Пропишите запрос, который удалит нужные строки в таблице.
+
+Важно: Чтобы проверка прошла успешно, перед нажатием кнопки Проверить студент должен написать запрос и нажать кнопку Выполнить.
+
+-- При написании запросов указывайте не только имя таблицы, но и схему.
+-- Название вашей схемы - itresume9847728
+-- Например, itresume9847728.tablename
+
+DROP TABLE IF EXISTS  itresume9847728.orderstatus;
+CREATE TABLE itresume9847728.orderstatus (
+    OrderStatusID INT PRIMARY KEY,
+    OrderID INT,
+    Status VARCHAR(50)
+);
+
+SELECT * FROM itresume9847728.orderstatus;

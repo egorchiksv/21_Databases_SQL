@@ -1,0 +1,25 @@
+Создайте хранимую процедуру с именем GetEmployeeOrders. который принимает идентификатор сотрудника в качестве параметра и возвращает все заказы, обработанные этим сотрудником, идентифицированным по EmployeeID. Пропишите запрос, который создаст требуемую процедуру.
+
+Столбцы в результате этой хранимой процедуры будут следующими:
+
+OrderID: идентификатор заказа,
+OrderDate: дата заказа,
+CustomerName: имя клиента.
+Используемые таблицы gb_shop.Orders и gb_shop.Customers.
+
+-- При написании запросов указывайте не только имя таблицы, но и схему.
+-- Название вашей схемы - itresume9847728
+-- Например, itresume9847728.tablename
+
+CREATE OR REPLACE FUNCTION itresume9847728.GetEmployeeOrders(pEmployeeID INT)
+RETURNS TABLE (OrderID INT, OrderDate DATE, CustomerName TEXT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT o.OrderID, o.OrderDate, c.CustomerName
+    FROM gb_shop.Orders o
+    JOIN gb_shop.Customers c ON o.CustomerID = c.CustomerID
+    WHERE o.EmployeeID = pEmployeeID;
+END;
+$$;

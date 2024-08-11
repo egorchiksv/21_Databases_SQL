@@ -1,0 +1,16 @@
+Создайте таблицу {student_schema_name}.EmployeeRoles, как на уроке.
+
+Важно: Чтобы проверка прошла успешно, перед нажатием кнопки Проверить студент должен написать запрос и нажать кнопку Выполнить.
+
+-- При написании запросов указывайте не только имя таблицы, но и схему.
+-- Название вашей схемы - itresume9847728
+-- Например, itresume9847728.tablename
+
+CREATE TABLE itresume9847728.EmployeeRoles
+(
+  ID INT PRIMARY KEY,
+  FirstName VARCHAR(20),
+  LastName VARCHAR(20)
+);
+
+SELECT * FROM itresume9847728.EmployeeRoles;
