@@ -1,0 +1,16 @@
+Сопоставьте совокупную сумму сумм кредита (CumulativeSum) для каждого кластера, упорядоченную по месяцам, и сумму кредита в порядке возрастания.
+
+В результате этого запроса должны быть столбцы:
+
+month: месяц,
+cluster: кластер (или категория),
+credit_amount: сумма кредита,
+CumulativeSum: накопленная сумма кредита для каждого кластера, рассчитанная по месяцам и сумме кредита, отсортированным в порядке возрастания.
+Используйте таблицуgb_shop.Clusters.
+
+SELECT
+    month,
+    cluster,
+    credit_amount,
+    SUM(credit_amount) OVER (PARTITION BY cluster ORDER BY month, credit_amount) AS CumulativeSum
+FROM gb_shop.Clusters;

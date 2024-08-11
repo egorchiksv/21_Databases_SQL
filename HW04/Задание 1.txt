@@ -1,0 +1,31 @@
+Ранжируйте продукты (по ProductRank) в каждой категории на основе их общего объема продаж (TotalSales).
+
+Ваша задача — ранжировать товары в каждой категории на основе их общего объема продаж, сгруппированного по категориям.
+
+Набор данных включает в себя информацию из gb_shop.OrderDetails таблицы, которая содержит сведения о каждом продукте в заказе, и таблицы gb_shop.Products, которая предоставляет дополнительную информацию о каждом продукте.
+
+PARTITION BY od.ProductID гарантирует, что сумма рассчитывается отдельно для каждого продукта.
+PARTITION BY CategoryID гарантирует, что рейтинг будет составляться отдельно для каждой категории.
+
+В результате этого запроса будут столбцы:
+
+CategoryID: идентификатор категории продукта,
+ProductID: идентификатор продукта,
+ProductName: название продукта,
+ProductRank: ранг продукта внутри своей категории на основе общего объема продаж в порядке убывания.
+Используйте таблицы gb_shop.OrderDetails и gb_shop.Products.
+
+SELECT 
+    CategoryID,
+    ProductID,
+    ProductName,
+    RANK() OVER (PARTITION BY CategoryID ORDER BY TotalSales DESC) AS ProductRank
+FROM (
+    SELECT
+        p.CategoryID,
+        od.ProductID,
+        p.ProductName,
+        SUM(od.Quantity*p.Price) OVER (PARTITION BY od.ProductID) AS TotalSales
+    FROM gb_shop.OrderDetails od
+    JOIN gb_shop.Products p ON od.ProductID = p.ProductID
+) AS ProductSales;
